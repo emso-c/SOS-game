@@ -13,7 +13,7 @@ body {
 #gameTable{
     float: left;
     width: 80%;
-    height: 80%;
+    height: 100%;
     background-color: antiquewhite;
     border-spacing: 0px;
     table-layout:fixed;
@@ -25,16 +25,9 @@ body {
     justify-content: center;
     align-items: center;
     width: 20%;
-    height: 80%;
+    height: 100%;
     background-color: rgb(43, 164, 89);
 }
-
-#details{
-    width: 100%;
-    height: 20%;
-    background-color: rgb(145, 105, 53);
-}
-
 
 #gametable tr{
     margin: 0;

@@ -1,16 +1,13 @@
-window.oncontextmenu = function() {
-    // return false;
-};
+var selectedText = "S";
+var actionHistory = [];
 
 var canvas = document.getElementById("canvas");
 var gameTable = document.getElementById("gameTable");
 canvas.width = gameTable.offsetWidth;
 canvas.height = gameTable.offsetHeight;
 
-var actionHistory = [];
-var selectedText = "S";
-
 function drawHorizontalLine(rect){
+    var middleX = (rect.right + rect.left) / 2;
     var middleY = (rect.bottom + rect.top) / 2;
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
@@ -19,8 +16,23 @@ function drawHorizontalLine(rect){
     ctx.lineTo(rect.right, middleY);
     ctx.stroke();
 }
+function removeHorizontalLine(rect){
+    var middleX = (rect.right + rect.left) / 2;
+    var middleY = (rect.bottom + rect.top) / 2;
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(rect.left, middleY - 1, rect.right - rect.left, 2);
+}
+function removeVerticalLine(rect){
+    var middleX = (rect.right + rect.left) / 2;
+    var middleY = (rect.bottom + rect.top) / 2;
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(middleX - 1, rect.top, 2, rect.bottom - rect.top);
+}
 function drawVerticalLine(rect){
     var middleX = (rect.right + rect.left) / 2;
+    var middleY = (rect.bottom + rect.top) / 2;
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
     ctx.beginPath();
@@ -32,12 +44,11 @@ function drawDoubleLine(rect){
     drawVerticalLine(rect, rect.top, rect.bottom);
     drawHorizontalLine(rect, rect.left, rect.right);
 }
-
-function tdclick(elem){
+function tdclick(elem){ 
     var rect = elem.getBoundingClientRect();
     drawHorizontalLine(rect);
-    drawVerticalLine(rect); 
-
+    drawVerticalLine(rect);
+    
     $row = elem.dataset.row;
     $col = elem.dataset.col;
     $id = elem.id
@@ -48,7 +59,8 @@ function tdclick(elem){
             "row": $row,
             "col": $col,
             "text": selectedText,
-            "id": $id
+            "id": $id,
+            "rect": rect
         }
     );
 };
@@ -61,7 +73,8 @@ function changeText(){
 function undoMove(){
     if(actionHistory.length > 0){
         $lastAction = actionHistory.pop();
+        removeHorizontalLine($lastAction.rect);
+        removeVerticalLine($lastAction.rect);
         document.getElementById($lastAction.id).innerHTML = "";
     }
 }
-
