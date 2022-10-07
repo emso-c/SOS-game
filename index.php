@@ -18,6 +18,7 @@
     ?>
 
     <div id="gameArea">
+        <canvas id="canvas"></canvas>
         <table id="gameTable">
             <?php
             $idCounter = 0;

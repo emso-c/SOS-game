@@ -26,7 +26,24 @@
             border-spacing: 0px;
             table-layout:fixed;
         }
-        
+
+        #scoreTable{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 20%;
+            height: 80%;
+            background-color: rgb(43, 164, 89);
+        }
+
+        #details{
+            width: 100%;
+            height: 20%;
+            background-color: rgb(145, 105, 53);
+        }
+
+
         #gametable tr{
             margin: 0;
             padding: 0;
@@ -40,11 +57,7 @@
             text-align: center;
             vertical-align: middle;
             font-size: 2em;
-            background: no-repeat center center fixed;
-            background-size: 100%;
-
         }
-
 
         #gameTable td:hover{
             background-color: #5f5f5f;
@@ -56,19 +69,12 @@
             pointer-events: none;
         }
 
-        .overlay {
-            height:0px;
-            overflow:visible;
-            pointer-events:none;
-            background:none !important;
-        }
-
     </style>
 </head>
 <body>
     <?php
-    $n = 3;
-    $m = 3;
+    $n = 10;
+    $m = 10;
     ?>
 
     <div id="gameArea">
@@ -86,9 +92,26 @@
             }
             ?>
         </table>
+        <div id="scoreTable">
+            <div id="textSelection">
+                <p>Selected: </p>
+                <p id="selectedText"></p>
+                <button onclick="changeText()">Change Selection</button>
+                <button onclick="undoMove()">Undo Move</button>
+            </div>
+        </div>
+        <div id="details">
+        </div>
     </div>
     <script>
         var selectedText = "S";
+        var actionHistory = [];
+        
+        var canvas = document.getElementById("canvas");
+        var gameTable = document.getElementById("gameTable");
+        canvas.width = gameTable.offsetWidth;
+        canvas.height = gameTable.offsetHeight;
+        
         function drawHorizontalLine(rect){
             var middleX = (rect.right + rect.left) / 2;
             var middleY = (rect.bottom + rect.top) / 2;
@@ -98,6 +121,20 @@
             ctx.moveTo(rect.left, middleY);
             ctx.lineTo(rect.right, middleY);
             ctx.stroke();
+        }
+        function removeHorizontalLine(rect){
+            var middleX = (rect.right + rect.left) / 2;
+            var middleY = (rect.bottom + rect.top) / 2;
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(rect.left, middleY - 1, rect.right - rect.left, 2);
+        }
+        function removeVerticalLine(rect){
+            var middleX = (rect.right + rect.left) / 2;
+            var middleY = (rect.bottom + rect.top) / 2;
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(middleX - 1, rect.top, 2, rect.bottom - rect.top);
         }
         function drawVerticalLine(rect){
             var middleX = (rect.right + rect.left) / 2;
@@ -116,18 +153,37 @@
         function tdclick(elem){ 
             var rect = elem.getBoundingClientRect();
             drawHorizontalLine(rect);
+            drawVerticalLine(rect);
             
             $row = elem.dataset.row;
             $col = elem.dataset.col;
             $id = elem.id
+            console.log($row, $col, $id);
             document.getElementById($id).innerHTML = selectedText;
+            actionHistory.push(
+                {
+                    "row": $row,
+                    "col": $col,
+                    "text": selectedText,
+                    "id": $id,
+                    "rect": rect
+                }
+            );
         };
+        
+        function changeText(){
+            selectedText = (selectedText == "S") ? "O" : "S";
+            document.getElementById("selectedText").innerHTML = selectedText;
+        }
 
-        var canvas = document.getElementById("canvas");
-        var gameTable = document.getElementById("gameTable");
-        canvas.width = gameTable.offsetWidth;
-        canvas.height = gameTable.offsetHeight;
-
+        function undoMove(){
+            if(actionHistory.length > 0){
+                $lastAction = actionHistory.pop();
+                removeHorizontalLine($lastAction.rect);
+                removeVerticalLine($lastAction.rect);
+                document.getElementById($lastAction.id).innerHTML = "";
+            }
+        }
     </script>
 </body>
 </html>
