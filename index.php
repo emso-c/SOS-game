@@ -59,11 +59,18 @@
             ?>
         </table>
         <div id="scoreTable">
+            <div id="scores">
+                <p id='blue'>Blue Team Score: </p>
+                <p id='red'>Red Team Score: </p>
+            </div>
             <div id="textSelection">
                 <p>Selected: </p>
                 <p id="selectedText"></p>
                 <button onclick="changeText()">Change Selection</button>
                 <button onclick="undoMove()">Undo Move</button>
+            </div>
+            <div id="gameOptions">
+                <button onclick="endGame()">End Game</button>
             </div>
         </div>
     </div>
