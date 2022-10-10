@@ -44,6 +44,21 @@ function drawDoubleLine(rect){
     drawVerticalLine(rect, rect.top, rect.bottom);
     drawHorizontalLine(rect, rect.left, rect.right);
 }
+
+function changeText(){
+    selectedText = (selectedText == "S") ? "O" : "S";
+    document.getElementById("selectedText").innerHTML = selectedText;
+}
+
+function undoMove(){
+    if(actionHistory.length > 0){
+        $lastAction = actionHistory.pop();
+        removeHorizontalLine($lastAction.rect);
+        removeVerticalLine($lastAction.rect);
+        document.getElementById($lastAction.id).innerHTML = "";
+    }
+}
+
 function tdclick(elem){ 
     var rect = elem.getBoundingClientRect();
     drawHorizontalLine(rect);
@@ -64,17 +79,3 @@ function tdclick(elem){
         }
     );
 };
-
-function changeText(){
-    selectedText = (selectedText == "S") ? "O" : "S";
-    document.getElementById("selectedText").innerHTML = selectedText;
-}
-
-function undoMove(){
-    if(actionHistory.length > 0){
-        $lastAction = actionHistory.pop();
-        removeHorizontalLine($lastAction.rect);
-        removeVerticalLine($lastAction.rect);
-        document.getElementById($lastAction.id).innerHTML = "";
-    }
-}
