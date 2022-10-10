@@ -63,6 +63,7 @@
                 <p id='blue'>Blue Team Score: </p>
                 <p id='red'>Red Team Score: </p>
             </div>
+            <p id="turn"></p>
             <div id="textSelection">
                 <p>Selected: </p>
                 <p id="selectedText"></p>
