@@ -14,7 +14,7 @@ body {
     float: left;
     width: 80%;
     height: 100%;
-    background-color: antiquewhite;
+    background-color: rgb(248, 244, 238);
     border-spacing: 0px;
     table-layout:fixed;
 }
@@ -22,11 +22,10 @@ body {
 #scoreTable{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 20%;
     height: 100%;
-    background-color: rgb(43, 164, 89);
+    background-color: rgb(151, 192, 255);
 }
 
 #gametable tr{
