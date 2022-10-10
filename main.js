@@ -49,17 +49,17 @@ function tdclick(elem){
     drawHorizontalLine(rect);
     drawVerticalLine(rect);
     
-    $row = elem.dataset.row;
-    $col = elem.dataset.col;
-    $id = elem.id
-    console.log($row, $col, $id);
-    document.getElementById($id).innerHTML = selectedText;
+    row = elem.dataset.row;
+    col = elem.dataset.col;
+    id = elem.id
+    console.log(row, col, id);
+    document.getElementById(id).innerHTML = selectedText;
     actionHistory.push(
         {
-            "row": $row,
-            "col": $col,
+            "row": row,
+            "col": col,
             "text": selectedText,
-            "id": $id,
+            "id": id,
             "rect": rect
         }
     );
