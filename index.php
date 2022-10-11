@@ -40,6 +40,8 @@
                     $m = intval($m);
                     if ($n == 0 || $m == 0)
                         throw new Exception("Invalid input");
+                    if ($n < 3 || $m < 3)
+                        throw new Exception("Dimensions should be at least 3x3");
                 } catch (Exception $e) {
                     echo $e->getMessage();
                     return;
