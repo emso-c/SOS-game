@@ -106,6 +106,7 @@ function tdclick(elem){
         placeSoses(soses);
         soses = findSOSes();
     }
+    
     makeRandomMove();
 };
 
@@ -157,14 +158,24 @@ function findSOSes(){
             }
         }
         
-        if (id % m == 4){
+        if(m == 3){
             id += 2;
         }
+        else if(m == 4){
+            if (id % m == (m-3)){
+                id += 2;
+            }    
+        }
+        else{
+            if (id % m == (m-3)){
+                id += 2;
+            }
+        }
+        
     }
     
     // col search
     for(var id = 0; id < (n*m)-(2*m); id++){
-
         elem = document.getElementById('t'+id);
         if (elem.innerHTML == 'S'){
             val = document.getElementById('t'+(id+m)).innerHTML
