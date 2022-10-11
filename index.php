@@ -60,8 +60,8 @@
         </table>
         <div id="scoreTable">
             <div id="scores">
-                <p id='blue'>Blue Team Score: </p>
-                <p id='red'>Red Team Score: </p>
+                <p id='blue'>Blue Team Score: 0</p>
+                <p id='red'>Red Team Score: 0</p>
             </div>
             <p id="turn"></p>
             <div id="textSelection">

@@ -20,39 +20,28 @@ var n = parseInt(getQueryVariable('n'));
 var m = parseInt(getQueryVariable('m'));
 
 var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
 var gameTable = document.getElementById("gameTable");
 canvas.width = gameTable.offsetWidth;
 canvas.height = gameTable.offsetHeight;
 
 function drawHorizontalLine(rect){
-    var middleX = (rect.right + rect.left) / 2;
     var middleY = (rect.bottom + rect.top) / 2;
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(rect.left, middleY);
     ctx.lineTo(rect.right, middleY);
     ctx.stroke();
 }
 function removeHorizontalLine(rect){
-    var middleX = (rect.right + rect.left) / 2;
     var middleY = (rect.bottom + rect.top) / 2;
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
     ctx.clearRect(rect.left, middleY - 1, rect.right - rect.left, 2);
 }
 function removeVerticalLine(rect){
     var middleX = (rect.right + rect.left) / 2;
-    var middleY = (rect.bottom + rect.top) / 2;
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
     ctx.clearRect(middleX - 1, rect.top, 2, rect.bottom - rect.top);
 }
 function drawVerticalLine(rect){
     var middleX = (rect.right + rect.left) / 2;
-    var middleY = (rect.bottom + rect.top) / 2;
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(middleX, rect.top);
     ctx.lineTo(middleX, rect.bottom);
@@ -64,8 +53,8 @@ function drawDoubleLine(rect){
 }
 
 function changeText(){
-    selectedText = (selectedText == "S") ? "O" : "S";
-    document.getElementById("selectedText").innerHTML = selectedText;
+    newText = (selectedText == "S") ? "O" : "S";
+    document.getElementById("selectedText").innerHTML = newText;
 }
 
 function undoMove(){
@@ -83,12 +72,9 @@ function changeTurn(){
 }
 
 function tdclick(elem){ 
-    /* var rect = elem.getBoundingClientRect();
-    drawHorizontalLine(rect);
-    drawVerticalLine(rect); */
-    if(elem.innerHTML!="&nbsp;"){
+    if(elem.innerHTML!="&nbsp;")
         return;
-    }
+
     var potential_soses = findSOSes();
 
     // player move
@@ -112,7 +98,6 @@ function tdclick(elem){
         }
     }
 
-    // change turn
     changeTurn();
     
     // AI move
