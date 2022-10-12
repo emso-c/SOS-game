@@ -19,6 +19,30 @@ function getQueryVariable(variable) {
 var n = parseInt(getQueryVariable('n'));
 var m = parseInt(getQueryVariable('m'));
 
+const sosConditions = [
+    {
+        'sequence': ['&nbsp;', 'O', 'S'],
+        'charToPlace': 'S',
+        'offsetIndex': 0
+    },
+    {
+        'sequence': ['S', '&nbsp;', 'S'],
+        'charToPlace': 'O',
+        'offsetIndex': 1
+    },
+    {
+        'sequence': ['S', 'O', '&nbsp;'],
+        'charToPlace': 'S' ,
+        'offsetIndex': 2
+    }
+]
+const elemSequenceOffsets = {
+    'row': [0, 1, 2],
+    'col': [0, m, 2*m],
+    'diagonalLR': [0, m+1, 2*(m+1)],
+    'diagonalRL': [0, m-1, 2*(m-1)],
+}
+
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var gameTable = document.getElementById("gameTable");
@@ -26,19 +50,13 @@ canvas.width = gameTable.offsetWidth;
 canvas.height = gameTable.offsetHeight;
 
 function drawHorizontalLine(rect){
+    console.log("drawing horizontal line");
     var middleY = (rect.bottom + rect.top) / 2;
     ctx.beginPath();
     ctx.moveTo(rect.left, middleY);
     ctx.lineTo(rect.right, middleY);
     ctx.stroke();
-}
-function removeHorizontalLine(rect){
-    var middleY = (rect.bottom + rect.top) / 2;
-    ctx.clearRect(rect.left, middleY - 1, rect.right - rect.left, 2);
-}
-function removeVerticalLine(rect){
-    var middleX = (rect.right + rect.left) / 2;
-    ctx.clearRect(middleX - 1, rect.top, 2, rect.bottom - rect.top);
+    console.log("drawed horizontal line");
 }
 function drawVerticalLine(rect){
     var middleX = (rect.right + rect.left) / 2;
@@ -47,6 +65,26 @@ function drawVerticalLine(rect){
     ctx.lineTo(middleX, rect.bottom);
     ctx.stroke();
 }
+function drawDiagonalLRLine(rect){
+    ctx.beginPath();
+    ctx.moveTo(rect.left, rect.top);
+    ctx.lineTo(rect.right, rect.bottom);
+    ctx.stroke();
+}
+function drawDiagonalRLLine(rect){
+    ctx.beginPath();
+    ctx.moveTo(rect.right, rect.top);
+    ctx.lineTo(rect.left, rect.bottom);
+    ctx.stroke();
+}
+/* function removeHorizontalLine(rect){
+    var middleY = (rect.bottom + rect.top) / 2;
+    ctx.clearRect(rect.left, middleY - 1, rect.right - rect.left, 2);
+}
+function removeVerticalLine(rect){
+    var middleX = (rect.right + rect.left) / 2;
+    ctx.clearRect(middleX - 1, rect.top, 2, rect.bottom - rect.top);
+} */
 
 function changeText(){
     selectedText = (selectedText == "S") ? "O" : "S";
@@ -70,6 +108,7 @@ function changeTurn(){
 function tdclick(elem){ 
     if(elem.innerHTML!="&nbsp;")
         return;
+    
 
     var potential_soses = findSOSes();
 
@@ -112,7 +151,7 @@ function tdclick(elem){
 
 function placeSoses(soses){
     for (const sos of soses) {
-        coordiantes = sos[0];
+        var coordiantes = sos[0];
         id = sos[1];
         text = sos[2];
         elem = document.getElementById('t'+id);
@@ -123,37 +162,33 @@ function placeSoses(soses){
     }
 }
 
+function checkCellEqual(id, char){
+    return document.getElementById('t'+id).innerHTML == char;
+}
+
+function checkSOS(id, direction){
+    var id1 = id+elemSequenceOffsets[direction][0];
+    var id2 = id+elemSequenceOffsets[direction][1];
+    var id3 = id+elemSequenceOffsets[direction][2];
+
+    for (const condition of sosConditions) {
+        if (!checkCellEqual(id1, condition.sequence[0]))
+            continue;
+        if (!checkCellEqual(id2, condition.sequence[1]))
+            continue;
+        if (!checkCellEqual(id3, condition.sequence[2]))
+            continue;
+        return [[id1, id2, id3], id+elemSequenceOffsets[direction][condition.offsetIndex], condition.charToPlace];
+    }
+}
+
 function findSOSes(){
     soses = [];
     // row search
     for(var id = 0; id < (n*m)-1; id++){
-        elem = document.getElementById('t'+id);
-        if (elem.innerHTML == 'S'){
-            val = document.getElementById('t'+(id+1)).innerHTML
-            if (val == '&nbsp;'){
-                val = document.getElementById('t'+(id+2)).innerHTML
-                if (val == 'S'){
-                    soses.push([[id, id+1, id+2], id+1, 'O']);
-                }
-            }
-        } 
-        if (elem.innerHTML == '&nbsp;'){
-            val = document.getElementById('t'+(id+1)).innerHTML
-            if (val == 'O'){
-                val = document.getElementById('t'+(id+2)).innerHTML
-                if (val == 'S'){
-                    soses.push([[id, id+1, id+2], id, 'S']);
-                }
-            }
-        } 
-        if (elem.innerHTML == 'S'){
-            val = document.getElementById('t'+(id+1)).innerHTML;
-            if (val == 'O'){
-                val = document.getElementById('t'+(id+2)).innerHTML;
-                if (val == '&nbsp;'){
-                    soses.push([[id, id+1, id+2], id+2, 'S']);
-                }
-            }
+        var rowSos = checkSOS(id, 'row');
+        if(rowSos){
+            soses.push(rowSos);
         }
 
         if(m == 3){
@@ -174,36 +209,35 @@ function findSOSes(){
     
     // col search
     for(var id = 0; id < (n*m)-(2*m); id++){
-        elem = document.getElementById('t'+id);
-        if (elem.innerHTML == 'S'){
-            val = document.getElementById('t'+(id+m)).innerHTML
-            if (val == '&nbsp;'){
-                val = document.getElementById('t'+(id+2*m)).innerHTML
-                if (val == 'S'){
-                    soses.push([[id, id+m, id+2*m], id+m, 'O']);
-                    id=id+1;
-                }
-            }
+        var colSos = checkSOS(id, 'col');
+        if(colSos){
+            soses.push(colSos);
         }
-        if (elem.innerHTML == '&nbsp;'){
-            val = document.getElementById('t'+(id+m)).innerHTML
-            if (val == 'O'){
-                val = document.getElementById('t'+(id+2*m)).innerHTML
-                if (val == 'S'){
-                    soses.push([[id, id+m, id+2*m], id, 'S']);
-                    id=id+1;
-                }
-            }
+    }
+
+    // diagonal search left to right
+    for(var id = 0; id < (n*m)-(2*(m+1)); id++){
+        if((id % m) == (m-2)){
+            id++;
+            continue;
         }
-        if (elem.innerHTML == 'S'){
-            val = document.getElementById('t'+(id+m)).innerHTML;
-            if (val == 'O'){
-                val = document.getElementById('t'+(id+2*m)).innerHTML;
-                if (val == '&nbsp;'){
-                    soses.push([[id, id+m, id+2*m], id+2*m, 'S']);
-                    id=id+1;
-                }
-            }
+        var diagonalSos = checkSOS(id, 'diagonalLR');
+        if(diagonalSos){
+            soses.push(diagonalSos);
+            console.log("LR:"+ diagonalSos);
+        }
+    }
+    
+    // diagonal search right to left
+    for(var id = 2; id < (n*m)-(2*m); id++){
+        if((id % m) == 0){
+            id++;
+            continue;
+        }
+        var diagonalSos = checkSOS(id, 'diagonalRL');
+        if(diagonalSos){
+            soses.push(diagonalSos);
+            console.log("RL:"+ diagonalSos);
         }
     }
     return soses;
@@ -230,20 +264,28 @@ function isGameOver(){
     return true;
 }
 
+function getDirection(coordinates){
+    if(coordinates[0] == coordinates[1] - elemSequenceOffsets.row[1])
+        return 'horizontal';
+    else if(coordinates[0] == coordinates[1] - elemSequenceOffsets.col[1])
+        return 'vertical';
+    else if(coordinates[0] == coordinates[1] - elemSequenceOffsets.diagonalLR[1])
+        return 'diagonalLR';
+    else if(coordinates[0] == coordinates[1] - elemSequenceOffsets.diagonalRL[1])
+        return 'diagonalRL';
+}
 function drawLine(coordinates){
-    function getDirection(){
-        if(coordinates[0] == coordinates[1]-1)
-            return "horizontal";
-        else
-            return "vertical";
-    }
-    // foreach coordinate
+    var direction = getDirection(coordinates);
     for(var j = 0; j < coordinates.length; j++){
         var rect = document.getElementById("t" + coordinates[j]).getBoundingClientRect();
-        if(getDirection() == "horizontal")
+        if(direction == "horizontal")
             drawHorizontalLine(rect);
-        else
+        else if(direction == "vertical")
             drawVerticalLine(rect);
+        else if(direction == "diagonalLR")
+            drawDiagonalLRLine(rect);
+        else if(direction == "diagonalRL")
+            drawDiagonalRLLine(rect);
     }
 }
 
