@@ -38,4 +38,5 @@ function tdclick(elem){
     else{
         makeRandomMove();
     }
+    changeTurn();
 };
