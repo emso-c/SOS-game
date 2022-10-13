@@ -1,12 +1,12 @@
 <html lang="en">
 <head>
     <title>SOS</title>
-    <script
-    src="https://code.jquery.com/jquery-3.6.1.min.js"
-    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-    crossorigin="anonymous"></script>
-    <script src="main.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/queryParser.js" defer></script>
+    <script src="js/graphic.js" defer></script>
+    <script src="js/sos.js" defer></script>
+    <script src="js/globals.js" defer></script>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
