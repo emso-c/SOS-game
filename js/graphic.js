@@ -24,14 +24,6 @@ function drawDiagonalRLLine(rect){
     ctx.lineTo(rect.left, rect.bottom);
     ctx.stroke();
 }
-/* function removeHorizontalLine(rect){
-    var middleY = (rect.bottom + rect.top) / 2;
-    ctx.clearRect(rect.left, middleY - 1, rect.right - rect.left, 2);
-}
-function removeVerticalLine(rect){
-    var middleX = (rect.right + rect.left) / 2;
-    ctx.clearRect(middleX - 1, rect.top, 2, rect.bottom - rect.top);
-} */
 
 function getDirection(coordinates){
     if(coordinates[0] == coordinates[1] - elemSequenceOffsets.row[1])

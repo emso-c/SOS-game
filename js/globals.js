@@ -1,6 +1,5 @@
 var selectedText = "O"; changeText();
 var turn = "red"; changeTurn();
-var actionHistory = [];
 var redScore = 0;
 var blueScore = 0;
 

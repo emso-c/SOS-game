@@ -70,7 +70,6 @@
                 <p>Selected: </p>
                 <p id="selectedText"></p>
                 <button onclick="changeText()">Change Selection</button>
-                <button onclick="undoMove()">Undo Move</button>
             </div>
             <div id="gameOptions">
                 <button onclick="endGame()">End Game</button>

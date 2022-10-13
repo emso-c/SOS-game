@@ -4,15 +4,6 @@ function changeText(){
     document.getElementById("selectedText").innerHTML = selectedText;
 }
 
-function undoMove(){
-    if(actionHistory.length > 0){
-        $lastAction = actionHistory.pop();
-        removeHorizontalLine($lastAction.rect);
-        removeVerticalLine($lastAction.rect);
-        document.getElementById($lastAction.id).innerHTML = "";
-    }
-}
-
 function changeTurn(){
     turn = (turn == "blue") ? "red" : "blue";
     document.getElementById("turn").innerHTML = turn;
@@ -155,13 +146,3 @@ function countEmpties(){
 function endGame(){
     console.log("game over");
 }
-
-/* actionHistory.push(
-            {
-                "row": elem.dataset.row,
-                "col": elem.dataset.col,
-                "text": selectedText,
-                "id": elem.id,
-                "rect": elem.getBoundingClientRect()
-            }
-        ); */
