@@ -1,9 +1,8 @@
-var selectedText = "S";
+var selectedText = "O"; changeText();
+var turn = "red"; changeTurn();
 var actionHistory = [];
-var turn = "red";
 var redScore = 0;
 var blueScore = 0;
-changeTurn();
 
 var n = parseInt(parseQuery('n'));
 var m = parseInt(parseQuery('m'));
