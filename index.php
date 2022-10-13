@@ -1,12 +1,12 @@
 <html lang="en">
 <head>
     <title>SOS</title>
-    <script
-    src="https://code.jquery.com/jquery-3.6.1.min.js"
-    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-    crossorigin="anonymous"></script>
-    <script src="main.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/queryParser.js" defer></script>
+    <script src="js/graphic.js" defer></script>
+    <script src="js/sos.js" defer></script>
+    <script src="js/globals.js" defer></script>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
@@ -40,6 +40,8 @@
                     $m = intval($m);
                     if ($n == 0 || $m == 0)
                         throw new Exception("Invalid input");
+                    if ($n < 3 || $m < 3)
+                        throw new Exception("Dimensions should be at least 3x3");
                 } catch (Exception $e) {
                     echo $e->getMessage();
                     return;
@@ -60,15 +62,14 @@
         </table>
         <div id="scoreTable">
             <div id="scores">
-                <p id='blue'>Blue Team Score: </p>
-                <p id='red'>Red Team Score: </p>
+                <p id='blue'>Blue Team Score: 0</p>
+                <p id='red'>Red Team Score: 0</p>
             </div>
             <p id="turn"></p>
             <div id="textSelection">
                 <p>Selected: </p>
                 <p id="selectedText"></p>
                 <button onclick="changeText()">Change Selection</button>
-                <button onclick="undoMove()">Undo Move</button>
             </div>
             <div id="gameOptions">
                 <button onclick="endGame()">End Game</button>
