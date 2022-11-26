@@ -144,5 +144,5 @@ function countEmpties(){
 }
 
 function endGame(){
-    console.log("game over");
+    alert("Game over, " + turn + " won!");
 }
