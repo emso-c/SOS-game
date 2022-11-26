@@ -143,6 +143,17 @@ function countEmpties(){
     return count;
 }
 
+function getWinner(){
+    if(redScore > blueScore){
+        return "Red";
+    }
+    else if(blueScore > redScore){
+        return "Blue";
+    }
+    return "Draw";
+}
+
 function endGame(){
-    alert("Game over, " + turn + " won!");
+    let winner = getWinner();
+    alert("Game over, " + winner + " won!");
 }
