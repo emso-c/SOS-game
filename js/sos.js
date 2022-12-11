@@ -2,6 +2,7 @@
 function changeText(){
     selectedText = (selectedText == "S") ? "O" : "S";
     document.getElementById("selectedText").innerHTML = selectedText;
+
 }
 
 function changeTurn(){
