@@ -157,5 +157,6 @@ function getWinnerText(){
 
 function endGame(){
     let winnerText = getWinnerText();
-    alert("Oyun bitti, " + winnerText);
+    $('#endGameModal').modal('show');
+    $('#winner').text(winnerText);
 }
