@@ -7,7 +7,8 @@ function changeText(){
 
 function changeTurn(){
     turn = (turn == "blue") ? "red" : "blue";
-    document.getElementById("turn").innerHTML = turn;
+    turnText = (turn == "blue") ? "Oyuncu" : "Bilgisayar";
+    document.getElementById("turn").innerHTML = turnText;
 }
 
 function placeSoses(soses){
@@ -25,11 +26,11 @@ function placeSoses(soses){
 function addScore(player){
     if(player == "red"){
         redScore++;
-        document.getElementById("red").innerHTML = 'Red Team Score: ' + redScore;
+        document.getElementById("red").innerHTML = redScore;
     }
     else{
         blueScore++;
-        document.getElementById("blue").innerHTML = 'Blue Team Score: ' + blueScore;
+        document.getElementById("blue").innerHTML = blueScore;
     }
 }
 
@@ -144,17 +145,17 @@ function countEmpties(){
     return count;
 }
 
-function getWinner(){
+function getWinnerText(){
     if(redScore > blueScore){
-        return "Red";
+        return "Bilgisayar kazandı!";
     }
     else if(blueScore > redScore){
-        return "Blue";
+        return "Oyuncu kazandı!";
     }
-    return "Draw";
+    return "Berabere!";
 }
 
 function endGame(){
-    let winner = getWinner();
-    alert("Game over, " + winner + " won!");
+    let winnerText = getWinnerText();
+    alert("Oyun bitti, " + winnerText);
 }
