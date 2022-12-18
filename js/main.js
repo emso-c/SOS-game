@@ -19,13 +19,23 @@ function tdclick(elem){
         }
     }
 
-    // AI move
     changeTurn();
+    $("body").css("pointer-events", "none");
+    setTimeout(AIMove, 1000); 
+};
+
+function AIMove(){
     soses = findSOSes();
     while(soses.length!=0){
         placeSoses(soses);
         soses = findSOSes();
     }
+    checkAIEnd();
+    changeTurn();
+    $("body").css("pointer-events", "");
+}
+
+function checkAIEnd(){
     emptyCount = countEmpties();
     if(emptyCount == 0){
         endGame();
@@ -39,4 +49,4 @@ function tdclick(elem){
         makeRandomMove();
     }
     changeTurn();
-};
+}
