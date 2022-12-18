@@ -11,6 +11,8 @@ var ctx = canvas.getContext("2d");
 var gameTable = document.getElementById("gameTable");
 canvas.width = gameTable.offsetWidth;
 canvas.height = gameTable.offsetHeight;
+ctx.strokeStyle = 'red';
+ctx.lineWidth = 3;
 
 const sosConditions = [
     {
