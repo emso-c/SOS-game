@@ -104,7 +104,8 @@
                 </div>
             </div>
             <div id="gameOptions" class="d-flex justify-content-center text-center">
-                <button class="btn btn-danger" onclick="endGame()">Oyunu Bitir</button>
+                <button class="btn btn-danger m-1" onclick="endGame()">Oyunu Bitir</button>
+                <button class="btn btn-danger m-1" onclick="location.reload()">Yeniden Oyna</button>
             </div>
         </div>
     </div>
@@ -119,6 +120,9 @@
                 </div>
                 <div class="modal-body">
                     <p class="text-center" style="font-size: 30px; text-shadow: 2px 2px 20px #000;" id="winner">test</p>
+                    <div class="d-flex justify-content-center text-center">
+                        <button class="btn btn-sm btn-danger" onclick="location.reload()">Yeniden Oyna</button>
+                    </div>
                 </div>
             </div>
         </div>
