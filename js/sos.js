@@ -66,11 +66,6 @@ function findSOSes(){
         if(m == 3){
             id += 2;
         }
-        else if(m == 4){
-            if (id % m == (m-3)){
-                id += 2;
-            }    
-        }
         else{
             if (id % m == (m-3)){
                 id += 2;
