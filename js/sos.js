@@ -12,8 +12,9 @@ function changeTurn(){
 }
 
 function placeSoses(soses){
+    // bilgisayara sosları koydur
     for (const sos of soses) {
-        var coordiantes = sos[0];
+        coordiantes = sos[0];
         id = sos[1];
         text = sos[2];
         elem = document.getElementById('t'+id);
@@ -34,11 +35,13 @@ function addScore(player){
     }
 }
 
+// hücrenin içindeki text ile bir karakteri karşılaştır
 function checkCellEqual(id, char){
     return document.getElementById('t'+id).innerHTML == char;
 }
 
 function checkSOS(id, direction){
+    // verilen kutuda ve yönde bir sos var mı
     var id1 = id+elemSequenceOffsets[direction][0];
     var id2 = id+elemSequenceOffsets[direction][1];
     var id3 = id+elemSequenceOffsets[direction][2];
@@ -50,6 +53,11 @@ function checkSOS(id, direction){
             continue;
         if (!checkCellEqual(id3, condition.sequence[2]))
             continue;
+        
+        // 3 bilgi döndürüyoruz
+        // [id1, id2, id3]: sos bulunan hücre id'leri
+        // id+elemSequenceOffsets[direction][condition.offsetIndex]: sos konulacak id konumu
+        // condition.charToReplace: Konulacak harf
         return [[id1, id2, id3], id+elemSequenceOffsets[direction][condition.offsetIndex], condition.charToPlace];
     }
 }
@@ -71,7 +79,6 @@ function findSOSes(){
                 id += 2;
             }
         }
-        
     }
     
     // col search

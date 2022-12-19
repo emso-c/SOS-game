@@ -1,8 +1,15 @@
 function drawHorizontalLine(rect){
+    // yatay çizgi çizilecek
+    // rect: herhangi bir hücrenin koorinatlarını içeren dikdörtgen
+    // ortayı bul
     var middleY = (rect.bottom + rect.top) / 2;
+    // çizgi çizeceğini söyle
     ctx.beginPath();
+    // fırçayı sola götür
     ctx.moveTo(rect.left, middleY);
+    // sağa kadar çiz
     ctx.lineTo(rect.right, middleY);
+    // gerçekle
     ctx.stroke();
 }
 function drawVerticalLine(rect){
@@ -40,6 +47,7 @@ function getDirection(coordinates){
 function drawLine(coordinates){
     var direction = getDirection(coordinates);
     for(var j = 0; j < coordinates.length; j++){
+        // hücrenin çerçevesini at
         var rect = document.getElementById("t" + coordinates[j]).getBoundingClientRect();
         if(direction == "horizontal")
             drawHorizontalLine(rect);

@@ -8,17 +8,22 @@
     <script src="js/globals.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+    <!-- Ekranın tamamı -->
     <div id="gameArea">
+        <!-- Oyun tablosunun üzerine sos'un çizgileri için yerleştirdiğimiz canvas -->
         <canvas id="canvas"></canvas>
+        <!-- Sos oyununun asıl alanı -->
         <table id="gameTable">
             <?php if (!isset($_GET['n']) || !isset($_GET['m'])) { ?>
+                <!-- n veya m değeri atanmamışsa -->
+                <!-- Giriş sayfası -->
                 <div class="bg-dark h-100 w-100 d-flex justify-content-center align-items-center">
+                    <!-- Tahta boyut formu -->
                     <form action="" method='get'>
                         <div class="row text-white text-center">
                             <h1 class="fw-bold " style="padding-bottom: 50px !important; font-size: 60px; text-shadow: 2px 2px 4px #000000;">
@@ -45,7 +50,7 @@
                 $n = $_GET['n'];
                 $m = $_GET['m'];
 
-                // sanitize input
+                // input kontrolü
                 try{
                     $n = intval($n);
                     $m = intval($m);
@@ -72,7 +77,9 @@
             }
             ?>
         </table>
+        <!-- Oyun menüsü -->
         <div id="scoreTable">
+            <!-- Skor tablosu -->
             <div id="scores" class="w-75">
                 <table class="table table-dark table-striped table-hover">
                     <thead>
@@ -93,8 +100,11 @@
                     </tbody>
                 </table>
             </div>
-            <p id="turnText">Sıra <span id="turn"></span>'da</p>
             
+            <!-- Oyuncu sırası -->
+            <p id="turnText">Sıra <span id="turn"></span>'da</p>
+
+            <!-- Harf değiştirme alanı -->
             <div id="textSelection" class="d-flex justify-content-center text-center">
                 <div class="row">
                     <p>Harf Seçimi: <span id="selectedText"></span></p>
@@ -102,6 +112,8 @@
 
                 </div>
             </div>
+            
+            <!-- Oyun seçenekleri -->
             <div id="gameOptions" class="d-flex justify-content-center text-center">
                 <button class="btn btn-danger m-1" onclick="endGame()">Oyunu Bitir</button>
                 <button class="btn btn-danger m-1" onclick="location.reload()">Yeniden Oyna</button>
@@ -109,7 +121,7 @@
         </div>
     </div>
 
-
+    <!-- Sonuç modal'ı -->            
     <div class="modal fade" id="endGameModal" tabindex="-1" aria-labelledby="endGameModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
