@@ -48,5 +48,4 @@ function checkAIEnd(){
     else{
         makeRandomMove();
     }
-    changeTurn();
 }
