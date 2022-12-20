@@ -22,7 +22,7 @@
                     <form action="" method='get'>
                         <div class="row text-white text-center">
                             <h1 class="fw-bold " style="padding-bottom: 50px !important; font-size: 60px; text-shadow: 2px 2px 4px #000000;">
-                                <span class="text-decoration-line-through">SOS</span> Oyunu
+                                <span style="text-decoration-color: red !important;" class="text-decoration-line-through">SOS</span> Oyunu
                             </h1>
                             <hr>
                             <h1 class="pt-3">Tahta alanını seçiniz</h1>
