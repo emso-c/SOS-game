@@ -4,10 +4,8 @@ function tdclick(elem){
 
     var potentialSoses = findSOSes();
 
-    // player move
     elem.innerHTML = selectedText;
     
-    // check soses found by player
     for(var i = 0; i < potentialSoses.length; i++){
         var sos_id = potentialSoses[i][1];
         var elem_id = elem.id.substring(1);

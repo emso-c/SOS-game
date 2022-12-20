@@ -121,7 +121,6 @@ function makeRandomMove(){
 }
 
 function isGameOver(){
-    // check if there is any empty cell
     for(var i = 0; i < n*m; i++){
         elem = document.getElementById('t'+i);
         if(elem.innerHTML == "&nbsp;")

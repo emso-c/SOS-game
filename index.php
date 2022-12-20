@@ -45,7 +45,7 @@
                 $n = $_GET['n'];
                 $m = $_GET['m'];
 
-                // sanitize input
+                // sanitize
                 try{
                     $n = intval($n);
                     $m = intval($m);
