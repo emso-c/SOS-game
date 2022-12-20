@@ -5,6 +5,10 @@ body {
     background-color: black;
 }
 
+body::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
 #gameArea{
     color: white;
     background-color: #ffffff;
