@@ -13,7 +13,7 @@ function changeTurn(){
 
 function placeSoses(soses){
     for (const sos of soses) {
-        var coordiantes = sos[0];
+        coordiantes = sos[0];
         id = sos[1];
         text = sos[2];
         elem = document.getElementById('t'+id);
@@ -50,7 +50,11 @@ function checkSOS(id, direction){
             continue;
         if (!checkCellEqual(id3, condition.sequence[2]))
             continue;
-        return [[id1, id2, id3], id+elemSequenceOffsets[direction][condition.offsetIndex], condition.charToPlace];
+        return [
+            [id1, id2, id3],
+            id+elemSequenceOffsets[direction][condition.offsetIndex],
+            condition.charToPlace
+        ];
     }
 }
 
