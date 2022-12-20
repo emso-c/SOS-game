@@ -12,6 +12,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 </head>
 <body>
     <div id="gameArea">
@@ -103,6 +104,9 @@
                 </div>
             </div>
             <div id="gameOptions" class="d-flex justify-content-center text-center">
+                <button class="btn btn-danger m-1" onclick="history.back()">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </button>
                 <button class="btn btn-danger m-1" onclick="endGame()">Oyunu Bitir</button>
                 <button class="btn btn-danger m-1" onclick="location.reload()">Yeniden Oyna</button>
             </div>
